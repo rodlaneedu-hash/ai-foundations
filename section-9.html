@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 9: Advanced Prompting — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+    --phase-color: #78C7A4;
+    --phase-bg: #E6F5EE;
+    --phase-text: #222222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--charcoal); }
+
+  .back-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Phase badge */
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--phase-text);
+    background: var(--phase-color);
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--phase-color);
+    color: var(--phase-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    padding-top: 6px;
+  }
+
+  /* Purpose block */
+  .purpose {
+    background: var(--phase-bg);
+    border-left: 4px solid var(--phase-color);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 36px;
+  }
+
+  .purpose p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Content */
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-top: 40px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-top: 32px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content ul {
+    margin: 0 0 16px 24px;
+    padding: 0;
+  }
+
+  .content ul li {
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content strong {
+    font-weight: 700;
+  }
+
+  /* Technique card */
+  .technique-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin-top: 28px;
+    margin-bottom: 8px;
+  }
+
+  .technique-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--teal);
+  }
+
+  .technique-card .technique-num {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+
+  /* Example block */
+  .example-block {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0 16px;
+    font-size: 0.92em;
+  }
+
+  .example-block .example-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+
+  .example-block p {
+    margin-bottom: 8px;
+    color: var(--grey);
+  }
+
+  .example-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .example-block ul {
+    margin: 4px 0 8px 20px;
+    color: var(--grey);
+  }
+
+  .example-block ul li {
+    color: var(--grey);
+    margin-bottom: 4px;
+  }
+
+  /* GCSE grid */
+  .gcse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .gcse-item {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .gcse-item strong {
+    color: var(--teal);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.95em;
+  }
+
+  .gcse-item p {
+    font-size: 0.88em;
+    color: var(--grey);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Key landing point */
+  .landing-point {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .landing-point .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .landing-point p {
+    margin: 0 0 12px;
+    color: var(--charcoal);
+  }
+
+  .landing-point p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Navigation */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--teal);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover {
+    background: var(--teal);
+    color: white;
+  }
+
+  .nav-link svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-spacer { flex: 1; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .nav-footer { display: none; }
+    .technique-card { break-inside: avoid; }
+    .gcse-grid { grid-template-columns: 1fr 1fr; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header { gap: 14px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-number { width: 48px; height: 48px; font-size: 1.3rem; }
+    .technique-card { padding: 20px 18px; }
+    .gcse-grid { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+    Back to Journey
+  </a>
+
+  <div class="phase-badge">Phase 5: Build Skills</div>
+
+  <div class="section-header">
+    <div class="section-number">9</div>
+    <h1>Advanced Prompting</h1>
+  </div>
+
+  <div class="purpose">
+    <p><strong>Purpose:</strong> Once the basics are in place, these techniques take prompting further &mdash; particularly for complex, high-stakes, or multi-step work. Drawn from GovHub&rsquo;s advanced prompting materials developed for Te Ara Ahunga Ora Retirement Commission.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- Technique 1 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 1</div>
+      <h3>Multi-stage prompting</h3>
+
+      <p>Section 8 covered breaking a single prompt into steps. Multi-stage prompting goes further &mdash; it&rsquo;s about breaking the entire <em>task</em> into separate prompts, each building on the last, with a human review checkpoint between stages. Break the work into stages, where each stage builds on the output of the previous one. Review the output at each stage before moving to the next.</p>
+
+      <p>A typical sequence: scan &rarr; pull out the key points &rarr; compare &rarr; draft &rarr; critique.</p>
+
+      <div class="example-block">
+        <div class="example-label">Example &mdash; a two-part approach</div>
+        <ul>
+          <li>Part 1: &ldquo;Analyse this document across these three dimensions. Output a table of findings.&rdquo;</li>
+          <li>Review the table. Then Part 2: &ldquo;Using the table you just produced, write a 150-word executive summary of the key findings for a senior audience.&rdquo;</li>
+        </ul>
+      </div>
+
+      <p>The principle: build in stages, review at each stage, don&rsquo;t let the AI run the full pipeline unsupervised. Each stage is a checkpoint where you verify before moving on.</p>
+    </div>
+
+    <!-- Technique 2 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 2</div>
+      <h3>Iteration as a habit</h3>
+
+      <p>Treat the first response as a draft, not a final product. Have a conversation. Push back. Ask for revisions. Tell it what&rsquo;s wrong and what you want changed. The best results almost never come from the first prompt &mdash; they come from the third or fourth exchange.</p>
+
+      <div class="example-block">
+        <div class="example-label">Useful follow-ups</div>
+        <ul>
+          <li>&ldquo;That&rsquo;s too long. Cut it to half the length and keep only the strongest points.&rdquo;</li>
+          <li>&ldquo;The tone is too formal. Rewrite as if you&rsquo;re explaining this to a colleague over coffee.&rdquo;</li>
+          <li>&ldquo;You missed [specific thing]. Add it and restructure around it.&rdquo;</li>
+          <li>&ldquo;That&rsquo;s good. Now challenge your own argument &mdash; what&rsquo;s the strongest counterpoint?&rdquo;</li>
+        </ul>
+      </div>
+
+      <p>What separates good from great is knowing what to ask for next, not just what to ask for first.</p>
+    </div>
+
+    <!-- Technique 3 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 3</div>
+      <h3>Constraints and guardrails</h3>
+
+      <p>Tell the AI what <strong>not</strong> to do. Think of these as safety rails. This is especially important for high-stakes work where errors carry consequences.</p>
+
+      <div class="example-block">
+        <div class="example-label">Useful constraints</div>
+        <ul>
+          <li>&ldquo;Do not fabricate sources or references.&rdquo;</li>
+          <li>&ldquo;Highlight any uncertainties or assumptions you&rsquo;ve made.&rdquo;</li>
+          <li>&ldquo;Flag areas that require human review before this goes further.&rdquo;</li>
+          <li>&ldquo;If you don&rsquo;t have enough information to answer confidently, say so.&rdquo;</li>
+          <li>&ldquo;Do not include personal opinions or speculative claims.&rdquo;</li>
+        </ul>
+      </div>
+
+      <p>They don&rsquo;t guarantee the AI will follow them perfectly, but they significantly reduce the chance of confident-sounding errors making it through to your final output.</p>
+    </div>
+
+    <!-- Technique 4 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 4</div>
+      <h3>The diagnostic habit</h3>
+
+      <p>Apply the same principle from Section 8: when output is weak, diagnose what&rsquo;s missing rather than starting from scratch. The <strong>GCSE prompt framework</strong> (Goal and Role, Context, Source, Expectation) from Microsoft&rsquo;s Copilot guidance. The diagnostic rule of thumb: when output is weak, ask which letter is missing.</p>
+
+      <div class="gcse-grid">
+        <div class="gcse-item">
+          <strong>G &mdash; Goal unclear</strong>
+          <p>The AI didn&rsquo;t know what you wanted or what role to adopt. Sharpen the action verb and be specific.</p>
+        </div>
+        <div class="gcse-item">
+          <strong>C &mdash; Context missing</strong>
+          <p>It didn&rsquo;t have enough background to tailor the response. Add the who, why, and situation.</p>
+        </div>
+        <div class="gcse-item">
+          <strong>S &mdash; Source not specified</strong>
+          <p>It guessed instead of using the material you wanted. Point it to specific content.</p>
+        </div>
+        <div class="gcse-item">
+          <strong>E &mdash; Expectations vague</strong>
+          <p>You didn&rsquo;t say what the output should look like. Specify format, tone, length, and structure.</p>
+        </div>
+      </div>
+
+      <p>Fix the weak element. Leave the rest. This is faster and more effective than rewriting the entire prompt.</p>
+    </div>
+
+    <!-- Technique 5 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 5</div>
+      <h3>Ask the AI to improve your approach</h3>
+
+      <p>Section 8 introduced the idea of asking the AI to help you write a prompt. At the advanced level, this becomes a planning tool for complex multi-step work:</p>
+
+      <div class="example-block">
+        <div class="example-label">Examples</div>
+        <ul>
+          <li>&ldquo;I need to analyse these three policy documents. What would be the most effective sequence of prompts to do this thoroughly?&rdquo;</li>
+          <li>&ldquo;I&rsquo;ve written this prompt but the output isn&rsquo;t what I need. What&rsquo;s wrong with my prompt and how would you improve it?&rdquo;</li>
+          <li>&ldquo;Suggest three ways I could break this task down into smaller steps.&rdquo;</li>
+        </ul>
+      </div>
+
+      <p>This turns the AI into a collaborator on the process, not just the content.</p>
+    </div>
+
+  </div>
+
+  <div class="landing-point">
+    <div class="label">Key Landing Point</div>
+    <p>Basic prompting gets you started. Advanced prompting is where the real productivity gains live &mdash; particularly for complex, multi-step, or high-stakes work. The common thread is intentionality: plan before you prompt, review before you proceed, and always keep the human in the loop at every stage.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="section-8.html" class="nav-link">
+      <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+      Previous: Section 8
+    </a>
+    <a href="index.html" class="nav-link">
+      Back to Journey
+      <svg viewBox="0 0 20 20"><path d="M5 10h10M15 10l-4-4M15 10l-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>

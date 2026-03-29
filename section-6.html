@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 6: Risks and How to Manage Them — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+    --phase-color: #C25B4A;
+    --phase-bg: #FBEAE8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--charcoal); }
+
+  .back-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Phase badge */
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: white;
+    background: var(--phase-color);
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--phase-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    padding-top: 6px;
+  }
+
+  /* Purpose block */
+  .purpose {
+    background: var(--phase-bg);
+    border-left: 4px solid var(--phase-color);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 36px;
+  }
+
+  .purpose p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Content */
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-top: 40px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--phase-color);
+    margin-top: 32px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content ul {
+    margin: 0 0 16px 24px;
+    padding: 0;
+  }
+
+  .content ul li {
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content strong {
+    font-weight: 700;
+  }
+
+  /* Mitigation block */
+  .mitigation {
+    background: #F9FAFB;
+    border-left: 3px solid var(--green);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 24px;
+    font-size: 0.95em;
+  }
+
+  .mitigation p {
+    margin: 0;
+    color: var(--grey);
+  }
+
+  .mitigation strong {
+    color: var(--charcoal);
+  }
+
+  /* Key landing point */
+  .landing-point {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .landing-point .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .landing-point p {
+    margin: 0 0 12px;
+    color: var(--charcoal);
+  }
+
+  .landing-point p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Navigation */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--teal);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover {
+    background: var(--teal);
+    color: white;
+  }
+
+  .nav-link svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-spacer { flex: 1; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .nav-footer { display: none; }
+    .section-card:hover { border-color: #E5E7EB; box-shadow: none; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header { gap: 14px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-number { width: 48px; height: 48px; font-size: 1.3rem; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+    Back to Journey
+  </a>
+
+  <div class="phase-badge">Phase 4: Protect</div>
+
+  <div class="section-header">
+    <div class="section-number">6</div>
+    <h1>Risks and How to Manage Them</h1>
+  </div>
+
+  <div class="purpose">
+    <p><strong>Purpose:</strong> The responsibility layer. Now that the audience knows what AI is, how it works, and how to use it, here&rsquo;s what can go wrong and what to do about it.</p>
+  </div>
+
+  <div class="content">
+
+    <h3>Bias</h3>
+
+    <p>Generative AI learns from the text it was trained on. That text carries human biases. The result: AI outputs tend to reflect the perspectives, assumptions, and cultural norms that were most common in the training data. Western, English-language perspectives dominate. Other viewpoints &mdash; including Indigenous knowledge, minority perspectives, and non-English-speaking cultures &mdash; are underrepresented or missing.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Don&rsquo;t treat AI output as neutral or balanced. Read it with the same critical eye you&rsquo;d apply to any single source. If the task involves diverse perspectives, don&rsquo;t rely on AI to represent them &mdash; bring those perspectives in yourself.</p>
+    </div>
+
+    <h3>Copyright</h3>
+
+    <p>Two issues here. First: if you paste copyrighted material into an AI tool (a textbook chapter, a journal article, someone else&rsquo;s report), you may be breaching copyright under the Copyright Act 1994 itself &mdash; uploading a &ldquo;substantial part&rdquo; of a copyrighted work is a restricted act, and &ldquo;substantial&rdquo; is judged by quality and importance, not just quantity. Second: AI can sometimes reproduce chunks of text that closely resemble its training data, including copyrighted material.</p>
+
+    <p>There&rsquo;s also an open question about who owns what AI produces. In New Zealand, the Copyright Act 1994 says the author of a computer-generated work is &ldquo;the person by whom the arrangements necessary for the creation of the work are undertaken&rdquo; (s 5(2)(a)) &mdash; but what this means for AI-generated content has not been tested in NZ courts. How much you actually shaped the work matters. Doing a light edit on what AI produced is not the same as being hands-on from the start. This area of law is changing fast.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Don&rsquo;t paste in material you don&rsquo;t have the right to share. Treat AI-generated content as a starting point that you revise and make your own &mdash; not as finished work you claim outright. If you are producing AI-generated content for others &mdash; clients, students, or external stakeholders &mdash; be upfront about AI&rsquo;s role in creating it, because the copyright protection they&rsquo;re expecting might not be there.</p>
+    </div>
+
+    <h3>Over-reliance and deskilling</h3>
+
+    <p>If you use AI to produce every first draft, every summary, every plan, you may find the underlying skills start to fade. Writing, analysis, critical thinking, and structured reasoning are skills that stay sharp through practice. Stop doing them, and they get rusty. There&rsquo;s also a subtler risk: if you always start with an AI draft, your thinking gets stuck on whatever the AI came up with first. You stop approaching the problem fresh.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Be deliberate about when you use AI and when you do the work yourself. Use it to accelerate tasks you already know how to do &mdash; not as a substitute for learning how to do them. If you notice you can&rsquo;t start without it, that&rsquo;s a signal to step back.</p>
+    </div>
+
+    <h3>Transparency and trust</h3>
+
+    <p>When someone reads a document, receives advice, or acts on a recommendation, they generally assume a human wrote it. If AI was significantly involved, and the other person didn&rsquo;t know, that&rsquo;s a trust issue. It doesn&rsquo;t mean you need to disclose every time you use a spell-checker. But if AI shaped the substance of the work, the people relying on it deserve to know.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Develop a clear personal or organisational standard for when to disclose AI use. A good rule of thumb: <em>if the other person&rsquo;s trust in the output depends on believing a human wrote it, you should disclose.</em></p>
+    </div>
+
+    <h3>Privacy and data</h3>
+
+    <p>Anything you type into a generative AI tool may be stored, logged, or used to improve the model &mdash; depending on the tool, the plan, and the provider&rsquo;s terms. Different tools handle your data differently &mdash; and even the same tool may offer weaker protections on its free plan than on a paid one. If you enter personal information, confidential data, or sensitive material, you may have no control over where it ends up.</p>
+
+    <p>In New Zealand, the Privacy Act 2020 is technology-neutral &mdash; the same privacy rules apply whether you&rsquo;re using AI or any other system that handles personal information. The Office of the Privacy Commissioner&rsquo;s expectations for organisations (public, private, and not-for-profit) include, among others: (1) obtain senior leadership approval before adopting a generative AI tool, (2) assess whether the tool is necessary and proportionate for the task, (3) conduct a Privacy Impact Assessment (a formal check on how the tool handles personal data), (4) confirm explicitly that the tool provider does not retain or disclose inputted information, (5) ensure that human review occurs before acting on AI-generated outputs that affect individuals, and (6) engage with Maori about potential impacts on their communities and taonga. The full list of expectations is published on the OPC website.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Never put personal, confidential, or sensitive information into any AI tool unless you have explicitly confirmed that the provider does not retain or disclose it. Before adopting any AI tool for organisational use, conduct a Privacy Impact Assessment and get senior leadership sign-off. If your organisation handles other people&rsquo;s data (clients, students, patients, members), apply the same rules you&rsquo;d apply to any other third-party platform.</p>
+    </div>
+
+    <h3>Equity and access</h3>
+
+    <p>The best AI tools are available only through paid subscriptions. Free tools have higher error rates, weaker safety filters, and fewer features. This creates a two-tier system: people with resources get better tools, while those without get a worse experience, with a higher risk of inaccurate or biased outputs. If you&rsquo;re designing processes or policies that assume everyone has the same access, you&rsquo;re building in inequality.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Don&rsquo;t assume equal access. If AI is part of a workflow, programme, or policy, make sure everyone affected has access to tools that are safe enough. Factor in the cost of equitable access when planning.</p>
+    </div>
+
+    <h3>M&#257;ori data sovereignty and cultural safety</h3>
+
+    <p>Generative AI models are trained on data scraped from the internet, which may include m&#257;tauranga M&#257;ori, te reo M&#257;ori, and culturally significant material collected without the free, prior, and informed consent of the communities it belongs to &mdash; meaning those communities weren&rsquo;t asked, didn&rsquo;t agree, and may not even know. When AI reproduces or remixes this material, it does so without understanding its cultural significance, its use protocols, or who has the authority to share it.</p>
+
+    <p>This is not just a data issue &mdash; it is a Te Tiriti o Waitangi issue. The Office of the Privacy Commissioner specifically expects organisations to engage with M&#257;ori about the potential impacts of AI tools on their communities and taonga. This expectation applies across all sectors.</p>
+
+    <div class="mitigation">
+      <p><strong>What to do about it:</strong> Do not use AI to generate, interpret, or remix m&#257;tauranga M&#257;ori, te reo M&#257;ori, or culturally significant material without appropriate guidance and authority. Consider the cultural safety of AI outputs, not just their technical accuracy. If your organisation&rsquo;s work intersects with M&#257;ori communities, data, or knowledge, engage with M&#257;ori about how AI is being used and what safeguards are in place.</p>
+    </div>
+
+  </div>
+
+  <div class="landing-point">
+    <div class="label">Key Landing Point</div>
+    <p>None of these risks mean you shouldn&rsquo;t use generative AI. They mean you should use it with your eyes open. The pattern is the same across all seven: understand the risk, put a human safeguard in place, and take responsibility for the output.</p>
+    <p>This is the same principle from Section 2: <strong>a human must always be in the loop.</strong> The technology doesn&rsquo;t manage its own risks. It doesn&rsquo;t know when it&rsquo;s wrong, biased, or breaching someone&rsquo;s privacy. That&rsquo;s your job. Every time.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="section-5.html" class="nav-link">
+      <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+      Previous: Section 5
+    </a>
+    <a href="section-7.html" class="nav-link">
+      Next: Section 7
+      <svg viewBox="0 0 20 20"><path d="M5 10h10M15 10l-4-4M15 10l-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>

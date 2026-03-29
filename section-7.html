@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 7: Core Skills for Working with AI — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+    --phase-color: #78C7A4;
+    --phase-bg: #E6F5EE;
+    --phase-text: #222222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--charcoal); }
+
+  .back-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Phase badge */
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--phase-text);
+    background: var(--phase-color);
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--phase-color);
+    color: var(--phase-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    padding-top: 6px;
+  }
+
+  /* Purpose block */
+  .purpose {
+    background: var(--phase-bg);
+    border-left: 4px solid var(--phase-color);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 36px;
+  }
+
+  .purpose p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Content */
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-top: 40px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-top: 32px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content ul {
+    margin: 0 0 16px 24px;
+    padding: 0;
+  }
+
+  .content ul li {
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content strong {
+    font-weight: 700;
+  }
+
+  /* Skill card */
+  .skill-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+
+  .skill-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--teal);
+  }
+
+  .skill-card .skill-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+
+  /* Three levels block */
+  .levels-intro {
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+
+  /* Connection block */
+  .connection-block {
+    background: #F9FAFB;
+    border-left: 3px solid var(--green);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .connection-block h3 {
+    margin-top: 0;
+    color: var(--teal);
+  }
+
+  .connection-block p {
+    color: var(--charcoal);
+    margin-bottom: 0;
+  }
+
+  /* Key landing point */
+  .landing-point {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .landing-point .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .landing-point p {
+    margin: 0 0 12px;
+    color: var(--charcoal);
+  }
+
+  .landing-point p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Navigation */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--teal);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover {
+    background: var(--teal);
+    color: white;
+  }
+
+  .nav-link svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-spacer { flex: 1; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .nav-footer { display: none; }
+    .skill-card { break-inside: avoid; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header { gap: 14px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-number { width: 48px; height: 48px; font-size: 1.3rem; }
+    .skill-card { padding: 20px 18px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+    Back to Journey
+  </a>
+
+  <div class="phase-badge">Phase 5: Build Skills</div>
+
+  <div class="section-header">
+    <div class="section-number">7</div>
+    <h1>Core Skills for Working with AI</h1>
+  </div>
+
+  <div class="purpose">
+    <p><strong>Purpose:</strong> The practical bridge. Now that the audience understands what AI is, how it works, what it&rsquo;s good at, when to use it, and how to manage the risks &mdash; what skills do they actually need? Drawn from Anthropic&rsquo;s &ldquo;Four Ds&rdquo; framework.</p>
+  </div>
+
+  <div class="content">
+
+    <p>Four skills matter. They apply whether you&rsquo;re automating a simple task, thinking through a complex problem with AI as a partner, or setting up an agent to work on your behalf.</p>
+
+    <!-- Skill 1: Delegation -->
+    <div class="skill-card">
+      <div class="skill-subtitle">Skill 1</div>
+      <h3>Delegation (Strategy) &mdash; deciding what to hand over</h3>
+
+      <p>Not everything should go to AI, and not everything should stay with you. Delegation is the skill of looking at your work and making a deliberate call about where AI fits. The best people at using AI are the ones who know their own work well first &mdash; AI skill comes second.</p>
+
+      <p class="levels-intro">Three things matter here:</p>
+      <ul>
+        <li><strong>Know what you&rsquo;re trying to achieve</strong> before involving AI. Define the goal, the success criteria, and the type of work involved. Is it routine and time-consuming? Is it complex and ambiguous? Does it require judgment about people or context? The answer shapes whether AI should be involved at all.</li>
+        <li><strong>Know what AI is good at</strong> &mdash; and what it&rsquo;s not. Speed, scale, first drafts, restructuring, brainstorming options: yes. Judgment, accuracy, relationships, anything that requires understanding your specific context: no.</li>
+        <li><strong>Choose the right kind of involvement.</strong> Not every task is all-or-nothing. You might automate it (hand it over entirely), collaborate on it (use AI as a thinking partner), reserve it for humans (keep AI out), or delegate it to an agent (set the brief and let it run). These four options map directly to the three modes in Section 5.</li>
+      </ul>
+    </div>
+
+    <!-- Skill 2: Description -->
+    <div class="skill-card">
+      <div class="skill-subtitle">Skill 2</div>
+      <h3>Description (Communication) &mdash; telling it what you need</h3>
+
+      <p>This is the skill most people think of as &ldquo;prompting,&rdquo; but it goes further than that. Whether you&rsquo;re writing a single prompt in a chat or a system instruction for an agent, the core skill is the same: communicating clearly enough that the AI produces something useful.</p>
+
+      <p class="levels-intro">Description works on three levels:</p>
+      <ul>
+        <li><strong>What to produce</strong> &mdash; the output itself. Be specific about the goal, context, source material, and expectations (tone, length, structure, format). This follows the GCSE prompting framework: Goal and Role, Context, Source, Expectation. Vague instructions produce vague outputs.</li>
+        <li><strong>How to work</strong> &mdash; the process. If the task has multiple steps, lay them out. Tell the AI to scan first, then extract, then compare, then draft. Give it a methodology, not just an end goal.</li>
+        <li><strong>How to behave</strong> &mdash; the interaction style. Tell it to challenge your assumptions, be concise, explain its reasoning, or flag uncertainties. This shapes the quality of the conversation, not just the output.</li>
+      </ul>
+
+      <p>This is a skill that improves with practice. Most people&rsquo;s first prompts are too short and too vague. That&rsquo;s normal &mdash; the skill is learning how much detail the AI needs to do useful work.</p>
+    </div>
+
+    <!-- Skill 3: Discernment -->
+    <div class="skill-card">
+      <div class="skill-subtitle">Skill 3</div>
+      <h3>Discernment (Evaluation) &mdash; evaluating what comes back</h3>
+
+      <p>This is the most important skill and the one most people underinvest in. Every AI output needs a human eye before it goes anywhere.</p>
+
+      <p class="levels-intro">Discernment works on three levels, matching the same three levels of description:</p>
+      <ul>
+        <li><strong>Evaluate the output</strong> &mdash; Is this accurate? Is it relevant? Is it complete? Is it appropriate for the audience? Has it introduced anything that shouldn&rsquo;t be there? Watch for the subtle failures: the output that&rsquo;s 95% right but has one confidently stated error buried in paragraph three, or the summary that sounds balanced but has quietly dropped an important nuance.</li>
+        <li><strong>Evaluate the reasoning</strong> &mdash; Did the AI follow a logical path to get there? Is there circular reasoning? Has it reintroduced an idea you already rejected? Checking how it got to the answer is as important as checking the answer itself.</li>
+        <li><strong>Evaluate the interaction</strong> &mdash; Is the AI communicating productively? Is it being too verbose, too cautious, too agreeable? If the interaction isn&rsquo;t working, the fix is usually better description &mdash; go back and sharpen how you told it what to do.</li>
+      </ul>
+
+      <p>The better the AI gets at sounding fluent, the harder it is to spot errors, and the more this skill matters. If you can&rsquo;t evaluate the output in a given domain, you shouldn&rsquo;t be using AI in that domain. That&rsquo;s not a limitation of the tool &mdash; it&rsquo;s a limitation of the workflow.</p>
+    </div>
+
+    <!-- Skill 4: Diligence -->
+    <div class="skill-card">
+      <div class="skill-subtitle">Skill 4</div>
+      <h3>Diligence (Responsibility) &mdash; taking responsibility for the result</h3>
+
+      <p>Whatever you produce with AI has your name on it. If you send a report, a plan, a communication, or a recommendation that was drafted with AI assistance, you are responsible for its accuracy, its tone, its implications, and its consequences. Not the AI. Not the company that made the AI. You.</p>
+
+      <p class="levels-intro">Diligence has three dimensions:</p>
+      <ul>
+        <li><strong>Be intentional about which tools you use</strong> &mdash; Before adopting an AI tool, consider how it was built, who owns the data you input, and whether using it aligns with your organisation&rsquo;s values and obligations. Not all tools are equal in terms of data handling, accuracy, or safety.</li>
+        <li><strong>Be transparent about AI&rsquo;s role</strong> &mdash; Apply the disclosure standard from Section 6: if AI shaped the substance, say so.</li>
+        <li><strong>Verify before you share</strong> &mdash; Check the output for accuracy, bias, and appropriateness before it leaves your desk. The higher the stakes, the more rigorous the check. Never treat &ldquo;the AI wrote it&rdquo; as a defence for something that turns out to be wrong, biased, or harmful.</li>
+      </ul>
+    </div>
+
+    <!-- How the four skills connect -->
+    <div class="connection-block">
+      <h3>How the four skills connect</h3>
+      <p>You <strong>delegate</strong> (decide what to hand over), <strong>describe</strong> (tell it what you need), <strong>discern</strong> (evaluate what comes back), and <strong>apply diligence</strong> to the result. This is a cycle, not a linear sequence &mdash; when discernment reveals a problem, the fix is usually better description, but sometimes it means revisiting delegation entirely. The cycle applies to a single prompt in a chat conversation and to a month-long project using multiple AI agents. The scale changes. The skills don&rsquo;t.</p>
+    </div>
+
+  </div>
+
+  <div class="landing-point">
+    <div class="label">Key Landing Point</div>
+    <p>Understanding AI is necessary. These four skills are what make it useful. They&rsquo;re not technical skills &mdash; they&rsquo;re professional skills applied to a new tool. And like any skill, they get better with deliberate practice.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="section-6.html" class="nav-link">
+      <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+      Previous: Section 6
+    </a>
+    <a href="section-8.html" class="nav-link">
+      Next: Section 8
+      <svg viewBox="0 0 20 20"><path d="M5 10h10M15 10l-4-4M15 10l-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>

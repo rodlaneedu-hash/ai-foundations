@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 4: When to Use It — and When Not To — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --teal-mid: #2A8A9E;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    min-height: 100vh;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: opacity 0.2s;
+  }
+
+  .back-link:hover { opacity: 0.7; }
+
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .phase-decide { background: var(--amber-light); color: var(--amber); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .num-amber { background: var(--amber); }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    padding-top: 6px;
+  }
+
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--amber);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content strong { font-weight: 700; }
+  .content em { font-style: italic; }
+
+  .content ul, .content ol {
+    margin-bottom: 16px;
+    padding-left: 28px;
+  }
+
+  .content li { margin-bottom: 10px; }
+
+  .purpose-box {
+    background: var(--amber-light);
+    border-left: 4px solid var(--amber);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  .landing-point {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  .landing-point-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2D7A54;
+    margin-bottom: 8px;
+  }
+
+  .landing-point p { margin-bottom: 0; color: var(--charcoal); }
+
+  /* Use / Don't use panels */
+  .decision-panel {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .decision-panel.use-it {
+    border-left: 4px solid var(--green);
+  }
+
+  .decision-panel.dont-use-it {
+    border-left: 4px solid #C25B4A;
+  }
+
+  .decision-panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .decision-panel.use-it .decision-panel-title { color: #2D7A54; }
+  .decision-panel.dont-use-it .decision-panel-title { color: #C25B4A; }
+
+  .decision-panel ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .decision-panel li {
+    padding-left: 0;
+    margin-bottom: 14px;
+  }
+
+  /* Activity box */
+  .activity-box {
+    background: #F3F4F6;
+    border-left: 4px solid var(--grey);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .activity-box-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--grey);
+    margin-bottom: 8px;
+  }
+
+  .activity-box p {
+    margin-bottom: 0;
+    color: var(--charcoal);
+  }
+
+  .bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid var(--teal);
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover { background: var(--teal); color: white; }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .bottom-nav { display: none; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-num { width: 44px; height: 44px; font-size: 1.2rem; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">&larr; Back to Journey</a>
+
+  <div class="phase-badge phase-decide">Phase 2: Decide</div>
+
+  <div class="section-header">
+    <div class="section-num num-amber">4</div>
+    <h1>When to Use It — and When Not To</h1>
+  </div>
+
+  <div class="content">
+
+    <div class="purpose-box">
+      <strong>Purpose:</strong> Turn the strengths and limitations into a practical decision framework. When does it make sense to reach for generative AI, and when should you leave it alone?
+    </div>
+
+    <!-- Use it when -->
+    <div class="decision-panel use-it">
+      <div class="decision-panel-title">Use it when:</div>
+      <ul>
+        <li><strong>You need a first draft, not a final product.</strong> It's excellent at getting something on the page — a structure, a starting point, a rough version you can shape. The value is in the time saved getting from a blank page to a working draft.</li>
+        <li><strong>The task is about language and structure.</strong> Summarising, reformatting, translating, adjusting tone, reorganising content — these play directly to its strengths. It's working with patterns it knows well.</li>
+        <li><strong>You can verify the output.</strong> If you have the knowledge to read the result and spot what's wrong, you're in a good position. The tool does the heavy lifting; you do the quality control.</li>
+        <li><strong>You want to think through options.</strong> It's a useful sounding board — "give me five ways I could approach this" or "what am I missing here?" It won't always be right, but it gives you material to react to, which is often more useful than staring at a blank page.</li>
+        <li><strong>The stakes are low to moderate.</strong> Internal planning, brainstorming, early-stage drafts, personal productivity — if a mistake in the output is easy to catch and cheap to fix, the risk is well matched.</li>
+      </ul>
+    </div>
+
+    <!-- Don't use it when -->
+    <div class="decision-panel dont-use-it">
+      <div class="decision-panel-title">Don't use it when:</div>
+      <ul>
+        <li><strong>You can't check whether the output is correct.</strong> If you don't have the expertise to verify the result, you have no way of knowing whether it's useful or dangerously wrong. This is the single biggest risk.</li>
+        <li><strong>The task involves personal or sensitive data.</strong> What you type into an AI tool may be stored or used for training (see Section 6 for detail). If the information is confidential, private, or sensitive, don't include it.</li>
+        <li><strong>The stakes are high, and the output is used straight away.</strong> Legal documents, medical advice, financial decisions, high-stakes communications — anywhere a plausible-sounding error could cause real harm. The tool doesn't know the difference between a harmless mistake and a consequential one.</li>
+        <li><strong>You need guaranteed accuracy.</strong> It doesn't look things up. It doesn't verify. If you need a fact, a citation, a regulation, or a number to be correct, go to the source. Don't trust the AI to get it right just because the answer sounds confident.</li>
+        <li><strong>The task requires judgment about people.</strong> Hiring decisions, performance assessments, and learning support recommendations — these require human understanding of context, relationships, and consequences that AI simply doesn't have.</li>
+      </ul>
+    </div>
+
+    <div class="landing-point">
+      <div class="landing-point-label">Key Landing Point</div>
+      <p>The decision isn't "should I use AI or not?" — it's "does this task match what AI is good at, and can I manage the limitations?" If you can verify the output and the stakes allow for imperfection, it's probably a good fit. If you can't check it or the cost of error is high, keep a human in the driver's seat.</p>
+    </div>
+
+    <div class="activity-box">
+      <div class="activity-box-label">Activities based on Section 4</div>
+      <p>Provide a list of all the strengths and limitations of AI, potentially in a table, then ask participants to write down the implications of each of these for their work.</p>
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <a href="section-3.html" class="nav-link">&larr; Previous: What It's Good At</a>
+    <a href="section-5.html" class="nav-link">Next: Three Ways to Use AI &rarr;</a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>

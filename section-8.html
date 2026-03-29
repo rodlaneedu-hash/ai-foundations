@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 8: Prompting Essentials — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+    --phase-color: #78C7A4;
+    --phase-bg: #E6F5EE;
+    --phase-text: #222222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--charcoal); }
+
+  .back-link svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Phase badge */
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--phase-text);
+    background: var(--phase-color);
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  /* Section header */
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--phase-color);
+    color: var(--phase-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    padding-top: 6px;
+  }
+
+  /* Purpose block */
+  .purpose {
+    background: var(--phase-bg);
+    border-left: 4px solid var(--phase-color);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 36px;
+  }
+
+  .purpose p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Content */
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--charcoal);
+    margin-top: 40px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-top: 32px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content ul {
+    margin: 0 0 16px 24px;
+    padding: 0;
+  }
+
+  .content ul li {
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content strong {
+    font-weight: 700;
+  }
+
+  /* Technique card */
+  .technique-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 28px 28px 24px;
+    margin-top: 28px;
+    margin-bottom: 8px;
+  }
+
+  .technique-card h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--teal);
+  }
+
+  .technique-card .technique-num {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--grey);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+  }
+
+  /* Example block */
+  .example-block {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0 16px;
+    font-size: 0.92em;
+  }
+
+  .example-block .example-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+
+  .example-label.weak { color: #9B7A3A; }
+  .example-label.stronger { color: #2D7A54; }
+
+  .example-block p {
+    margin-bottom: 8px;
+    color: var(--grey);
+  }
+
+  .example-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Secret weapon */
+  .secret-weapon {
+    background: var(--amber-light);
+    border-left: 4px solid var(--amber);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .secret-weapon h3 {
+    margin-top: 0;
+    color: var(--amber);
+    font-size: 1.15rem;
+  }
+
+  .secret-weapon p {
+    color: var(--charcoal);
+    margin-bottom: 0;
+  }
+
+  /* Key landing point */
+  .landing-point {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .landing-point .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .landing-point p {
+    margin: 0 0 12px;
+    color: var(--charcoal);
+  }
+
+  .landing-point p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Navigation */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--teal);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover {
+    background: var(--teal);
+    color: white;
+  }
+
+  .nav-link svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-spacer { flex: 1; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .nav-footer { display: none; }
+    .technique-card { break-inside: avoid; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header { gap: 14px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-number { width: 48px; height: 48px; font-size: 1.3rem; }
+    .technique-card { padding: 20px 18px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+    Back to Journey
+  </a>
+
+  <div class="phase-badge">Phase 5: Build Skills</div>
+
+  <div class="section-header">
+    <div class="section-number">8</div>
+    <h1>Prompting Essentials</h1>
+  </div>
+
+  <div class="purpose">
+    <p><strong>Purpose:</strong> The practical how-to for writing effective prompts. Section 7 introduced Description as a core skill &mdash; this section gives people the techniques to actually do it. Drawn from Anthropic&rsquo;s &ldquo;6 Techniques for Effective Prompt Engineering.&rdquo;</p>
+  </div>
+
+  <div class="content">
+
+    <p>Six techniques that make the difference between vague output and useful output:</p>
+
+    <!-- Technique 1 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 1</div>
+      <h3>Provide context</h3>
+
+      <p>Don&rsquo;t just say what you want &mdash; say why, for whom, and in what situation. The more relevant background you provide, the more useful the response.</p>
+
+      <div class="example-block">
+        <div class="example-label weak">Weak</div>
+        <p>&ldquo;Tell me about climate change.&rdquo;</p>
+      </div>
+
+      <div class="example-block">
+        <div class="example-label stronger">Stronger</div>
+        <p>&ldquo;Explain three major impacts of climate change on agriculture in tropical regions, with examples from the past decade.&rdquo;</p>
+      </div>
+
+      <p>Without your context, the AI is guessing. This is how you close that gap.</p>
+    </div>
+
+    <!-- Technique 2 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 2</div>
+      <h3>Show examples of what &ldquo;good&rdquo; looks like</h3>
+
+      <p>If you want the AI to produce something in a particular style, format, or register, show it an example first. Give it one or two examples of the pattern you want, then ask it to follow that pattern. (AI people call this &ldquo;few-shot prompting,&rdquo; but it&rsquo;s really just showing the AI what good looks like before asking it to have a go.)</p>
+
+      <div class="example-block">
+        <div class="example-label weak">Weak</div>
+        <p>&ldquo;Convert this technical statement to plain language.&rdquo;</p>
+      </div>
+
+      <div class="example-block">
+        <div class="example-label stronger">Stronger</div>
+        <p>&ldquo;Here are two examples of how to convert technical jargon to plain language: [example 1] [example 2]. Now convert this statement using the same approach.&rdquo;</p>
+      </div>
+
+      <p>Showing beats telling. An example does more than a paragraph of instructions.</p>
+    </div>
+
+    <!-- Technique 3 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 3</div>
+      <h3>Specify output constraints</h3>
+
+      <p>Tell it exactly what you want the output to look like &mdash; length, format, structure, tone. If you don&rsquo;t specify, you get whatever the AI&rsquo;s default is, which may not be what you need.</p>
+
+      <div class="example-block">
+        <div class="example-label weak">Weak</div>
+        <p>&ldquo;Design me a portfolio website.&rdquo;</p>
+      </div>
+
+      <div class="example-block">
+        <div class="example-label stronger">Stronger</div>
+        <p>&ldquo;Create a clean, single-page portfolio with these sections: About Me, Projects, Experience, Contact. Keep the language professional and concise.&rdquo;</p>
+      </div>
+
+      <p>Be specific about scope, format, length, and any parameters that matter.</p>
+    </div>
+
+    <!-- Technique 4 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 4</div>
+      <h3>Break complex tasks into steps</h3>
+
+      <p>Don&rsquo;t try to do everything in one prompt. If the task has multiple parts, lay them out as numbered steps. This guides the AI&rsquo;s reasoning and produces more thorough, structured responses.</p>
+
+      <div class="example-block">
+        <div class="example-label weak">Weak</div>
+        <p>&ldquo;Analyse this quarterly sales data.&rdquo;</p>
+      </div>
+
+      <div class="example-block">
+        <div class="example-label stronger">Stronger</div>
+        <p>&ldquo;Analyse this quarterly sales data by: 1. Identifying top-performing products, 2. Comparing this quarter to the previous quarter, 3. Highlighting unusual patterns or trends, 4. Suggesting possible reasons for those trends.&rdquo;</p>
+      </div>
+
+      <p>Breaking it down guides the AI&rsquo;s reasoning process and ensures it doesn&rsquo;t skip parts.</p>
+    </div>
+
+    <!-- Technique 5 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 5</div>
+      <h3>Ask it to think first</h3>
+
+      <p>Before the AI gives you an answer, ask it to consider the problem carefully &mdash; think through factors, constraints, and approaches before recommending a solution. This produces more thoughtful, considered responses.</p>
+
+      <div class="example-block">
+        <div class="example-label stronger">Example</div>
+        <p>&ldquo;Before answering, think through this problem carefully. Consider the different factors involved, potential constraints, and various approaches before recommending the best solution.&rdquo;</p>
+      </div>
+
+      <p>Giving the AI space to reason before responding encourages more comprehensive answers.</p>
+    </div>
+
+    <!-- Technique 6 -->
+    <div class="technique-card">
+      <div class="technique-num">Technique 6</div>
+      <h3>Define the AI&rsquo;s role, style, or tone</h3>
+
+      <p>Tell the AI who it should be for this task &mdash; what perspective, expertise, and audience it should have in mind. This shapes the tone, depth, and framing of the response.</p>
+
+      <div class="example-block">
+        <div class="example-label stronger">Example</div>
+        <p>&ldquo;Explain how rainbows form from the perspective of an experienced science teacher speaking to a bright 10-year-old who&rsquo;s interested in science.&rdquo;</p>
+      </div>
+
+      <p>Defining the role, tone, or style helps shape the AI&rsquo;s approach to fit your specific needs and audience.</p>
+    </div>
+
+    <!-- Secret weapon -->
+    <div class="secret-weapon">
+      <h3>Secret weapon: ask the AI to help you write the prompt</h3>
+      <p>If you&rsquo;re not sure how to ask for something, ask the AI itself. &ldquo;I&rsquo;m trying to get you to help me with [goal]. I&rsquo;m not sure how to phrase my request to get the best results. Can you help me craft an effective prompt for this?&rdquo;</p>
+      <p style="margin-top: 12px;">This is perhaps the most powerful technique of all &mdash; and the one most people overlook.</p>
+    </div>
+
+  </div>
+
+  <div class="landing-point">
+    <div class="label">Key Landing Point</div>
+    <p>These six techniques aren&rsquo;t complicated. They&rsquo;re just habits of clear communication applied to a new medium. When output is weak, the fix is almost always one of these six &mdash; sharpen the context, add an example, constrain the output, break it into steps, ask it to think first, or define the role. Diagnose which one is missing rather than rewriting the entire prompt from scratch.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="section-7.html" class="nav-link">
+      <svg viewBox="0 0 20 20"><path d="M15 10H5M5 10l4-4M5 10l4 4"/></svg>
+      Previous: Section 7
+    </a>
+    <a href="section-9.html" class="nav-link">
+      Next: Section 9
+      <svg viewBox="0 0 20 20"><path d="M5 10h10M15 10l-4-4M15 10l-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>

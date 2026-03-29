@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 2: How Generative AI Works — AI Foundations</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #1B6B7D;
+    --teal-light: #E8F4F6;
+    --teal-mid: #2A8A9E;
+    --green: #78C7A4;
+    --green-light: #E6F5EE;
+    --charcoal: #222222;
+    --grey: #4B5563;
+    --warm-white: #FAFAF8;
+    --amber: #A67B00;
+    --amber-light: #FFF8E7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    min-height: 100vh;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 40px 60px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: opacity 0.2s;
+  }
+
+  .back-link:hover { opacity: 0.7; }
+
+  .phase-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .phase-understand { background: var(--teal-light); color: var(--teal); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .section-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .num-teal { background: var(--teal); }
+
+  .section-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--charcoal);
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    padding-top: 6px;
+  }
+
+  .content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--teal);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .content p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .content strong { font-weight: 700; }
+  .content em { font-style: italic; }
+
+  .content ul, .content ol {
+    margin-bottom: 16px;
+    padding-left: 28px;
+  }
+
+  .content li { margin-bottom: 10px; }
+
+  .purpose-box {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .landing-point {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  .landing-point-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2D7A54;
+    margin-bottom: 8px;
+  }
+
+  .landing-point p { margin-bottom: 0; color: var(--charcoal); }
+
+  /* Building block cards */
+  .building-block {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .building-block-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--teal);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .building-block p {
+    margin-bottom: 12px;
+  }
+
+  .misconception {
+    background: var(--amber-light);
+    border-left: 3px solid var(--amber);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 12px;
+    font-size: 0.92rem;
+  }
+
+  .misconception-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+
+  .misconception p { margin-bottom: 0; }
+
+  .bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+    gap: 16px;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid var(--teal);
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-link:hover { background: var(--teal); color: white; }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+    font-size: 0.75rem;
+    color: var(--grey);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; }
+    .back-link { display: none; }
+    .bottom-nav { display: none; }
+    .nav-link:hover { background: transparent; color: var(--teal); }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px; }
+    .section-header h1 { font-size: 1.5rem; }
+    .section-num { width: 44px; height: 44px; font-size: 1.2rem; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="index.html" class="back-link">&larr; Back to Journey</a>
+
+  <div class="phase-badge phase-understand">Phase 1: Understand</div>
+
+  <div class="section-header">
+    <div class="section-num num-teal">2</div>
+    <h1>How Generative AI Works</h1>
+  </div>
+
+  <div class="content">
+
+    <div class="purpose-box">
+      <strong>Purpose:</strong> Build a conceptual mental model — just enough to understand why it does what it does (and doesn't do what people assume it does). Misconceptions are dissolved as each concept lands.
+    </div>
+
+    <p>Six building blocks, each paired with the misconception it dissolves:</p>
+
+    <!-- Block 1 -->
+    <div class="building-block">
+      <div class="building-block-title">1. Training data — patterns</div>
+      <p>Generative AI is trained on massive amounts of text (books, websites, articles, code). During training, it learns patterns — which words and ideas tend to appear together, in what order, in what situations.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"AI has been programmed with knowledge/facts."</em> It hasn't. It has patterns. No one sat down and taught it that Wellington is the capital of New Zealand — it encountered that pattern frequently enough in training data to reproduce it.</p>
+      </div>
+    </div>
+
+    <!-- Block 2 -->
+    <div class="building-block">
+      <div class="building-block-title">2. Token prediction</div>
+      <p>When you give it a prompt, it generates a response one word at a time (technically called a "token"), each time asking: "given everything so far, what word should come next?" It does this thousands of times to produce a response.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"AI understands what it's saying."</em> It doesn't. It's really good at predicting what comes next based on patterns. The output often reads as if it understands, because human language follows patterns, and the model is very good at reproducing them. But there is no comprehension behind it.</p>
+      </div>
+    </div>
+
+    <!-- Block 3 -->
+    <div class="building-block">
+      <div class="building-block-title">3. It doesn't give the same answer twice</div>
+      <p>Because there's a degree of randomness in how it picks the next word, the same prompt can produce different outputs each time. It's not retrieving a stored answer — it's generating a new one every time.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"There's a 'right answer' in there if I ask the right way."</em> There isn't. Every response is freshly generated. This is also why two people can get different answers to the same question.</p>
+      </div>
+    </div>
+
+    <!-- Block 4 -->
+    <div class="building-block">
+      <div class="building-block-title">4. No memory, no knowledge, no reasoning</div>
+      <p>It has no access to the internet (unless given tools). It has no memory between conversations (unless designed to). It cannot verify its own claims. It doesn't actually think things through the way we do — it produces text that looks like reasoning because when humans reason, we use patterns of language, and the AI is very good at copying those patterns. Newer models are getting better at multi-step reasoning tasks, but under the hood, it's still predicting patterns, not actually understanding anything.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"AI knows things / AI is always right / AI can fact-check itself."</em> It can't. It will state a falsehood with the same confidence as a fact, because sounding confident is just another pattern it learned. It sounds confident whether it's right or wrong. This is called hallucination — and it's getting better with each new version, but it won't go away. It's inherent to how the technology works.</p>
+      </div>
+    </div>
+
+    <!-- Block 5 -->
+    <div class="building-block">
+      <div class="building-block-title">5. It's not a search engine</div>
+      <p>When you type something into Google, it searches an index of web pages and shows you links to information that already exists. When you type something into a generative AI tool, the underlying language model is not usually going out to the internet to look things up in that way. Instead, it generates a response one word at a time, based on patterns it has learned from very large amounts of text. In other words, it is constructing an answer that sounds right, rather than retrieving a specific page it has stored.</p>
+      <p>This means the model itself cannot reliably tell you "I got this from here," because it does not keep a neat list of sources it can point back to. If you ask a basic AI chatbot for references, it may sometimes invent ones that look real — with convincing authors, titles, and journals — because it has learned what references usually "look" like, not because it has actually checked a real database. Newer tools, like Perplexity and some versions of ChatGPT, add a separate search step on top of the model so they can show you real web pages and citations, but underneath they are still using a language model that generates text rather than a search engine that simply finds documents.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"I asked AI, and it said..."</em> is not the same as "I looked it up and found..." Treating AI output as a retrieved fact is the single fastest way to get burned. If you need a fact, go to the source. Use the AI to help you think, draft, and structure — not to tell you what's true.</p>
+      </div>
+    </div>
+
+    <!-- Block 6 -->
+    <div class="building-block">
+      <div class="building-block-title">6. Its knowledge has a use-by date</div>
+      <p>Every AI model was trained on data up to a specific point in time — its knowledge cutoff. It doesn't know what happened after that date. If you ask about recent events, new legislation, current statistics, or anything that's changed since its training ended, it will either tell you it doesn't know or — more dangerously — generate a plausible-sounding answer based on older patterns. It has no way of knowing that its information is outdated.</p>
+      <div class="misconception">
+        <div class="misconception-label">Misconception dissolved</div>
+        <p><em>"AI has the latest information."</em> It doesn't, unless the tool has been specifically connected to the internet or given access to current data. Even then, the core model's knowledge has a fixed boundary. Always check whether the information you're asking about falls within or beyond that boundary.</p>
+      </div>
+    </div>
+
+    <div class="landing-point">
+      <div class="landing-point-label">Key Landing Point</div>
+      <p>Generative AI works by predicting patterns. That's all it does. It is extraordinarily good at producing fluent, plausible, useful text. But it does not know, understand, reason, or verify. Every strength and every risk flows from this single fact. Which is why one principle applies every time you use it: <strong>a human must always be in the loop</strong> — checking, interpreting, and taking responsibility for the output. Not sometimes. Every time.</p>
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <a href="section-1.html" class="nav-link">&larr; Previous: What is AI?</a>
+    <a href="section-3.html" class="nav-link">Next: What It's Good At &rarr;</a>
+  </div>
+
+  <div class="footer">
+    GovHub AI Services &mdash; 2026
+  </div>
+
+</div>
+
+</body>
+</html>
