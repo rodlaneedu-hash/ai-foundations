@@ -146,6 +146,21 @@
     box-shadow: 0 2px 12px rgba(27, 107, 125, 0.08);
   }
 
+  a.section-card::after {
+    content: 'Read more →';
+    grid-column: 2;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-top: 4px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  a.section-card:hover::after {
+    opacity: 1;
+  }
+
   .section-num {
     width: 44px;
     height: 44px;
